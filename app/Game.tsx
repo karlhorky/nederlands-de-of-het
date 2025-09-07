@@ -60,7 +60,7 @@ export default function Game() {
       save(next);
 
       // visual feedback flash
-      setTimeout(() => setFlash(null), 250);
+      setTimeout(() => setFlash(null), 400);
     },
     [dataset, save, state],
   );
@@ -75,6 +75,10 @@ export default function Game() {
         e.key.toLowerCase() === 'd'
       ) {
         e.preventDefault();
+        // Blur button to ensure visual feedback is visible
+        if (document.activeElement instanceof HTMLButtonElement) {
+          document.activeElement.blur();
+        }
         answer('de');
       }
       if (
@@ -83,6 +87,10 @@ export default function Game() {
         e.key.toLowerCase() === 'h'
       ) {
         e.preventDefault();
+        // Blur button to ensure visual feedback is visible
+        if (document.activeElement instanceof HTMLButtonElement) {
+          document.activeElement.blur();
+        }
         answer('het');
       }
     };
@@ -236,13 +244,13 @@ export default function Game() {
                 ref={btnDeRef}
                 onClick={() => answer('de')}
                 aria-keyshortcuts="1 D ArrowLeft"
-                className={`inline-flex items-center justify-center rounded-lg border border-neutral-200 px-3 lg:px-5 py-3 lg:py-4 scale-buttons-medium scale-buttons-small scale-buttons-tiny scale-buttons-mini text-base lg:text-lg font-medium text-current hover:bg-neutral-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-black dark:border-neutral-700 dark:hover:bg-neutral-800 ${
+                className={`inline-flex items-center justify-center rounded-lg border border-neutral-200 px-3 lg:px-5 py-3 lg:py-4 scale-buttons-medium scale-buttons-small scale-buttons-tiny scale-buttons-mini text-base lg:text-lg font-medium text-current hover:bg-neutral-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-black dark:border-neutral-700 dark:hover:bg-neutral-800 transition-all ${
                   flash &&
                   state.answers.length > 0 &&
                   state.answers[state.answers.length - 1]?.chosen === 'de'
                     ? flash === 'correct'
-                      ? 'ring-2 ring-green-600'
-                      : 'ring-2 ring-red-600'
+                      ? 'ring-4 ring-green-500 bg-green-50 border-green-300 dark:bg-green-900/30 dark:border-green-600'
+                      : 'ring-4 ring-red-500 bg-red-50 border-red-300 dark:bg-red-900/30 dark:border-red-600'
                     : ''
                 }`}
               >
@@ -252,13 +260,13 @@ export default function Game() {
                 ref={btnHetRef}
                 onClick={() => answer('het')}
                 aria-keyshortcuts="2 H ArrowRight"
-                className={`inline-flex items-center justify-center rounded-lg border border-neutral-200 px-3 lg:px-5 py-3 lg:py-4 scale-buttons-medium scale-buttons-small scale-buttons-tiny scale-buttons-mini text-base lg:text-lg font-medium text-current hover:bg-neutral-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-black dark:border-neutral-700 dark:hover:bg-neutral-800 ${
+                className={`inline-flex items-center justify-center rounded-lg border border-neutral-200 px-3 lg:px-5 py-3 lg:py-4 scale-buttons-medium scale-buttons-small scale-buttons-tiny scale-buttons-mini text-base lg:text-lg font-medium text-current hover:bg-neutral-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-black dark:border-neutral-700 dark:hover:bg-neutral-800 transition-all ${
                   flash &&
                   state.answers.length > 0 &&
                   state.answers[state.answers.length - 1]?.chosen === 'het'
                     ? flash === 'correct'
-                      ? 'ring-2 ring-green-600'
-                      : 'ring-2 ring-red-600'
+                      ? 'ring-4 ring-green-500 bg-green-50 border-green-300 dark:bg-green-900/30 dark:border-green-600'
+                      : 'ring-4 ring-red-500 bg-red-50 border-red-300 dark:bg-red-900/30 dark:border-red-600'
                     : ''
                 }`}
               >
