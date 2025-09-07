@@ -1,5 +1,98 @@
 @import 'tailwindcss';
 
+/* Height-based container queries for game card - balanced approach */
+@container game (height < 32rem) {
+  .hide-on-large {
+    @apply hidden;
+  }
+  .scale-on-large {
+    @apply text-base;
+  }
+  .scale-word-large {
+    @apply text-3xl py-5;
+  }
+}
+
+@container game (height < 28rem) {
+  .hide-on-short {
+    @apply hidden;
+  }
+  .scale-on-medium {
+    @apply text-sm;
+  }
+  .scale-padding-medium {
+    @apply p-3;
+  }
+  .scale-margin-medium {
+    @apply mb-3;
+  }
+  .scale-word-medium {
+    @apply text-2xl py-4;
+  }
+  .scale-buttons-medium {
+    @apply py-2.5 text-base;
+  }
+}
+
+@container game (height < 24rem) {
+  .scale-on-small {
+    @apply text-xs;
+  }
+  .scale-padding-small {
+    @apply p-2;
+  }
+  .scale-margin-small {
+    @apply mb-2;
+  }
+  .scale-buttons-small {
+    @apply py-2 text-sm;
+  }
+  .scale-word-small {
+    @apply text-xl py-3;
+  }
+}
+
+@container game (height < 20rem) {
+  .scale-on-tiny {
+    @apply text-xs;
+  }
+  .scale-padding-tiny {
+    @apply p-1.5;
+  }
+  .scale-margin-tiny {
+    @apply mb-1.5;
+  }
+  .scale-buttons-tiny {
+    @apply py-1.5 text-xs;
+  }
+  .scale-word-tiny {
+    @apply text-lg py-2;
+  }
+}
+
+@container game (height < 16rem) {
+  .scale-word-mini {
+    @apply text-base py-1;
+  }
+  .scale-buttons-mini {
+    @apply py-1 text-xs;
+  }
+  .scale-progress-mini {
+    @apply h-1;
+  }
+  .scale-padding-mini {
+    @apply p-1;
+  }
+  .scale-margin-mini {
+    @apply mb-1;
+  }
+}
+
+/* Footer text scaling based on container height */
+.footer-text {
+  font-size: clamp(0.7rem, 2cqh, 0.875rem);
+}
+
 /* Design tokens */
 :root {
   --background: #ffffff;
