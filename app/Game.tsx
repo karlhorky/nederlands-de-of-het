@@ -5,11 +5,11 @@ import type { Article } from '../database/words';
 import { words } from '../database/words';
 import {
   type Answer,
+  createFreshGameState,
+  createGameStateFromIndices,
   type GameState,
   loadGameState,
   saveGameState,
-  createFreshGameState,
-  createGameStateFromIndices,
 } from '../util/persistence';
 
 export default function Game() {
@@ -151,7 +151,9 @@ export default function Game() {
               <div className="flex gap-3">
                 <button
                   onClick={() => {
-                    const fresh = createGameStateFromIndices(wrong.map((w) => w.index));
+                    const fresh = createGameStateFromIndices(
+                      wrong.map((w) => w.index),
+                    );
                     save(fresh);
                   }}
                   className="inline-flex items-center justify-center rounded-lg border border-neutral-200 bg-white px-4 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-black dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100 dark:hover:bg-neutral-800"
@@ -243,6 +245,54 @@ export default function Game() {
             >
               2. het
             </button>
+          </div>
+        </div>
+
+        {/* Recent answers ticker - always shown to prevent height changes */}
+        <div className="mb-4 overflow-hidden rounded-lg border border-neutral-200 bg-gradient-to-r from-neutral-50 to-neutral-100 p-3 dark:border-neutral-700 dark:from-neutral-800 dark:to-neutral-700">
+          <div className="mb-2 text-xs font-medium uppercase tracking-wide text-neutral-500 dark:text-neutral-400">
+            Recente antwoorden
+          </div>
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 min-h-[2.5rem]">
+            {state.answers.length > 0 ? (
+              state.answers
+                .slice(-3)
+                .reverse()
+                .map((recentAnswer) => {
+                  const word = dataset[recentAnswer.index]!;
+                  const isCorrect = recentAnswer.correct;
+                  return (
+                    <div
+                      key={`recent-${recentAnswer.index}-${state.answers.length}`}
+                      className={`flex min-w-0 flex-shrink-0 items-center gap-2 rounded-md px-3 py-2 text-sm transition-all ${
+                        isCorrect
+                          ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'
+                          : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
+                      }`}
+                    >
+                      <span className="text-xs">{isCorrect ? '✓' : '✗'}</span>
+                      <span className="text-xs opacity-75">
+                        {isCorrect ? (
+                          <>
+                            {recentAnswer.chosen} {word.word}
+                          </>
+                        ) : (
+                          <>
+                            <span className="line-through">
+                              {recentAnswer.chosen} {word.word}
+                            </span>{' '}
+                            {recentAnswer.expected} {word.word}
+                          </>
+                        )}
+                      </span>
+                    </div>
+                  );
+                })
+            ) : (
+              <div className="text-sm text-neutral-400 dark:text-neutral-500">
+                Antwoorden verschijnen hier...
+              </div>
+            )}
           </div>
         </div>
 
