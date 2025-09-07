@@ -222,11 +222,13 @@ export default function Game() {
               onClick={() => answer('de')}
               aria-keyshortcuts="1 D ArrowLeft"
               className={`inline-flex items-center justify-center rounded-lg border border-neutral-200 px-5 py-4 text-lg font-medium text-current hover:bg-neutral-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-black dark:border-neutral-700 dark:hover:bg-neutral-800 ${
-                flash === 'correct' && current.article === 'de'
-                  ? 'ring-2 ring-green-600'
-                  : flash === 'wrong' && current.article !== 'de'
-                    ? 'ring-2 ring-red-600'
-                    : ''
+                flash &&
+                state.answers.length > 0 &&
+                state.answers[state.answers.length - 1]?.chosen === 'de'
+                  ? flash === 'correct'
+                    ? 'ring-2 ring-green-600'
+                    : 'ring-2 ring-red-600'
+                  : ''
               }`}
             >
               1. de
@@ -236,11 +238,13 @@ export default function Game() {
               onClick={() => answer('het')}
               aria-keyshortcuts="2 H ArrowRight"
               className={`inline-flex items-center justify-center rounded-lg border border-neutral-200 px-5 py-4 text-lg font-medium text-current hover:bg-neutral-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-black dark:border-neutral-700 dark:hover:bg-neutral-800 ${
-                flash === 'correct' && current.article === 'het'
-                  ? 'ring-2 ring-green-600'
-                  : flash === 'wrong' && current.article !== 'het'
-                    ? 'ring-2 ring-red-600'
-                    : ''
+                flash &&
+                state.answers.length > 0 &&
+                state.answers[state.answers.length - 1]?.chosen === 'het'
+                  ? flash === 'correct'
+                    ? 'ring-2 ring-green-600'
+                    : 'ring-2 ring-red-600'
+                  : ''
               }`}
             >
               2. het
