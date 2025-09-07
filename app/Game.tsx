@@ -104,7 +104,7 @@ export default function Game() {
     );
   }
 
-  const total = dataset.length;
+  const total = state.order.length;
   const at = state.order[state.pointer]!;
   const current = dataset[at]!;
 
